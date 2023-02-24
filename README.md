@@ -13,9 +13,9 @@ In the future, we will write code to download each report and automatically extr
 These scripts were written in R version 4.0.2 and RStudio Version 1.1.383. 
 The following R packages (available on CRAN) are needed:
 
-* [**tidyverse**]
-* [**searcher**]
-* [**rvest**]
+* tidyverse
+* searcher
+* rvest
 
 In addition, we also use the web-scraping tool Outscraper which is a private service with a small fee per process.
 
