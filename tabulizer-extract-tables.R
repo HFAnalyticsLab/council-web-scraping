@@ -9,9 +9,10 @@
 library(tidyverse)
 library(readxl)
 library(aws.s3)
-library(tabulizer)
 library(pdftools)
-library(xlsx)
+library(data.table)
+#library(tabulizer)
+#library(xlsx)
 
 #####  Setup
 
@@ -96,15 +97,15 @@ for (i in 1:nrow(outscraper_pdf_results_relevant)){
 
 
 #Save output (and read back in)
-saveRDS(output_list, file=paste0(git_directory,"/tabulizer-output-list.Rdata"))
-readRDS(paste0(git_directory,"/tabulizer-output-list.Rdata"))
+saveRDS(output_list, file=paste0(git_directory,"/Tabulizer outputs/tabulizer-output-list.Rdata"))
+tabulizer_output_list <- readRDS(paste0(git_directory,"/Tabulizer outputs/tabulizer-output-list.Rdata"))
 
 #Cover spreadsheet with title of extracts
 
-cover_sheet <- data.frame(`name`=names(output_list),
-                          `sheet index`=1:length(output_list))
+cover_sheet <- data.frame(`name`=names(tabulizer_output_list),
+                          `sheet index`=1:length(tabulizer_output_list))
 
-write.xlsx(cover_sheet,paste0(git_directory,"/tabulizer-cover-sheet.xlsx"), sheetName = "Cover")
+fwrite(cover_sheet,paste0(git_directory,"/Tabulizer outputs/tabulizer-cover-sheet.csv"),header=FALSE)
 
 #Append tables to spreadsheet
 
