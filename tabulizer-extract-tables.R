@@ -34,7 +34,7 @@ outscraper_pdf_results_relevant <- outscraper_pdf_results %>%
 
 #####  Read in tables in PDFs
 
-#Auxiliary functions
+#Try-catch versions of pdf_text and extract_table, so that the loop keeps going if a link is broken or there are no tables in the PDF
 try_pdf_text <- function(link){
   tryCatch(
     {
@@ -105,7 +105,7 @@ tabulizer_output_list <- readRDS(paste0(git_directory,"/Tabulizer outputs/tabuli
 cover_sheet <- data.frame(`name`=names(tabulizer_output_list),
                           `sheet index`=1:length(tabulizer_output_list))
 
-fwrite(cover_sheet,paste0(git_directory,"/Tabulizer outputs/tabulizer-cover-sheet.csv"),header=FALSE)
+fwrite(cover_sheet,paste0(git_directory,"/Tabulizer outputs/tabulizer-cover-sheet.csv"))
 
 #Append tables to spreadsheet
 
