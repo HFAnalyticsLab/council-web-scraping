@@ -9,11 +9,12 @@ library(rstudioapi)
 
 #####  Setup
 
-#Directories
-git_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
-
 #Clear the working environment
 rm(list = ls()) 
+
+#Directories
+source('setup.R') ## bucket locations (not shared)
+git_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
 
 #####  Get list of council websites
 
@@ -75,5 +76,5 @@ fwrite(search_terms_pdf,paste0(git_directory,"/Outscraper inputs/search_terms_pd
 outscraper_pdf_results <- read_excel(paste0(git_directory,"/Outscraper outputs/20230222161745961f-search-results.xlsx"))
 
 outscraper_pdf_results_relevant <- outscraper_pdf_results %>%
-  filter(str_detect(tolower(title),"cost of care"))
-  
+  filter(str_detect(tolower(title),"cost of care")) %>%
+  mutate(council_name=str_extract_all(link,"(?<=https://www.).+(?=.gov.uk/)") %>% unlist())
